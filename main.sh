@@ -1,7 +1,9 @@
 #!/bin/bash
 
-export GOPATH="/Users/maggie/Documents/photo_mosaic/photo-mosaic-app/"
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-export PATH="$PATH:/Users/maggie/Documents/photo_mosaic/photo-mosaic-app/bin/"
+export GOPATH="${DIR}"
 
-cd ~/Documents/photo_mosaic/photo-mosaic-app/src/photomosaic
+export PATH="$PATH:${DIR}/bin/"
+
+cd ${DIR}/src/photomosaic
