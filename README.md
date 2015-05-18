@@ -1,6 +1,6 @@
 # Simple Photo Mosaic App
 
-Nothing fancy.
+Nothing fancy. Run `source main.sh` to set up your `bee` path and `cd` you into the project directory.
 
 ### The Challenge
 
