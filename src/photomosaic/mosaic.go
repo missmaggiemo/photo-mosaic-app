@@ -11,7 +11,7 @@ import (
 
 type empty struct {}
 
-func main() {
+func mosaic() {
     fmt.Println("# of proc: ", runtime.NumCPU())
     runtime.GOMAXPROCS(runtime.NumCPU())
 
@@ -27,7 +27,6 @@ func main() {
     var main_img_path string = tests.GetMainFilePath(main_image_path)
 
     var main_image = imgproc.LoadImage(main_img_path)
-
     main_image = imgproc.EnlargeMainImage(main_image)
 
     var tiles = make([]image.Image, len(tile_paths))
