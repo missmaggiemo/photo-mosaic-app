@@ -3,8 +3,9 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"io/ioutil"
+//	"io/ioutil"
     "fmt"
+    "photomosaic/imgproc"
 //    "reflect"
 )
 
@@ -13,13 +14,12 @@ type ProcessController struct {
 }
 
 func (c *ProcessController) Post() {
-    f, _, _ := c.Ctx.Request.FormFile("file")
+    f, hdr, _ := c.Ctx.Request.FormFile("file")
     defer f.Close()
 
-    tile, _ := ioutil.ReadAll(f)
-
-    c.Ctx.Output.Header("Content-Type", "image/jpeg")
-    c.Ctx.Output.Body(tile)
+    tile := imgproc.LoadImageFromStream(hdr.Filename, f)
+    imgproc.SaveImage("tmp/" + hdr.Filename, tile)
+    c.Ctx.WriteString(hdr.Filename)
 
     fmt.Println("Finished")
 }

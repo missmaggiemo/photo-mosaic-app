@@ -8,4 +8,5 @@ import (
 func init() {
     beego.Router("/", &controllers.MainController{})
     beego.Router("/process", &controllers.ProcessController{})
+    beego.Router("/image", &controllers.ImageController{})
 }
