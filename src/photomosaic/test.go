@@ -22,7 +22,6 @@ func main() {
         //fmt.Println(tile_path)
         tiles[idx] = imgproc.LoadImage(tile_path)
         tiles[idx] = imgproc.ResizeTile(tiles[idx])
-        imgproc.SaveImage("tmp/tile" + string(idx) + ".jpg", tiles[idx])
     }
 
     var result_image image.Image = imgproc.Compose(main_image, tiles)
