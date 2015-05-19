@@ -6,10 +6,14 @@ import (
 	"photomosaic/tests"
 	"photomosaic/imgproc"
 	"os"
+	"runtime"
 )
 
 
 func main() {
+    fmt.Println("# of proc: ", runtime.NumCPU())
+    runtime.GOMAXPROCS(runtime.NumCPU())
+
     var tiles_path = ""
     var main_image_path = ""
 

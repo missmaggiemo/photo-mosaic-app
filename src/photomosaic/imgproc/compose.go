@@ -54,11 +54,13 @@ func getTileWithMinimalDiff(part image.Image, tiles []image.Image, tile_hists []
 }
 
 
+type empty struct {}
+
+
 func Compose(main_image image.Image, tiles []image.Image) image.Image {
     var bounds image.Rectangle = main_image.Bounds()
     var sx, sy, fx, fy = bounds.Min.X, bounds.Min.Y, bounds.Max.X, bounds.Max.Y
 
-    var res [][]image.Image = make([][]image.Image, int(math.Floor(float64(fx - sx) / TILE_WIDTH)))
     var resulting_image = image.NewRGBA(bounds)
 
     var tile_hists = make([][100]int, len(tiles))
@@ -66,18 +68,32 @@ func Compose(main_image image.Image, tiles []image.Image) image.Image {
         tile_hists[idx] = getHist(tile)
     }
 
-    for x := 0; x < int(math.Floor(float64(fx - sx) / TILE_WIDTH)); x++ {
-        res[x] = make([]image.Image, int(math.Floor(float64(fy - sy) / TILE_HEIGHT)))
-        for y := 0; y < int(math.Floor(float64(fy - sy) / TILE_HEIGHT)); y++ {
-            var rect = image.Rect(x * TILE_WIDTH, y * TILE_HEIGHT, (x + 1) * TILE_WIDTH, (y + 1) * TILE_HEIGHT)
+    N := int(math.Floor(float64(fx - sx) / TILE_WIDTH))
+    M := int(math.Floor(float64(fy - sy) / TILE_HEIGHT))
 
-            var subimg = main_image.(interface {
-                SubImage(r image.Rectangle) image.Image
-            }).SubImage(rect)
+    sem := make(chan empty, N*M)
 
-            var tile = getTileWithMinimalDiff(subimg, tiles, tile_hists)
-            draw.Draw(resulting_image, rect, tile, image.Point{0, 0}, draw.Src)
+    for x := 0; x < N; x++ {
+        for y := 0; y < M; y++ {
+
+            go func (x int, y int) {
+                var rect = image.Rect(x * TILE_WIDTH, y * TILE_HEIGHT, (x + 1) * TILE_WIDTH, (y + 1) * TILE_HEIGHT)
+
+                var subimg = main_image.(interface {
+                    SubImage(r image.Rectangle) image.Image
+                }).SubImage(rect)
+
+                var tile = getTileWithMinimalDiff(subimg, tiles, tile_hists)
+                draw.Draw(resulting_image, rect, tile, image.Point{0, 0}, draw.Src)
+
+                sem <- empty{}
+            } (x, y)
+
         }
+    }
+
+    for i:= 0; i < N * M; i++ {
+        <-sem
     }
 
     return resulting_image
