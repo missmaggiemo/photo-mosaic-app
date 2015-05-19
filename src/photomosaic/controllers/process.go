@@ -12,7 +12,7 @@ type ProcessController struct {
 }
 
 func (c *ProcessController) Post() {
-    f, h, _ := c.GetFile("tiles")
+    f, h, _ := c.GetFile("file")
 
 	fmt.Println(h)
 	fmt.Println(reflect.TypeOf(f))

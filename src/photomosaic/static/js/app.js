@@ -16,10 +16,7 @@
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
           Upload.upload({
-            url: 'PLACEHOLDER',
-            fields: {
-                'username': $scope.username
-            },
+            url: '/process',
             file: file
           }).progress(function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
