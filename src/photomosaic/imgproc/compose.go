@@ -7,13 +7,18 @@ import (
 )
 
 
-func diff(a, b image.Image) int {
+func diff(a, b image.Image, min_val int) int {
     var res float64 = 0
     var bounds image.Rectangle = a.Bounds()
 
     var sx, sy, fx, fy = bounds.Min.X, bounds.Min.Y, bounds.Max.X, bounds.Max.Y
     for x := sx; x < fx; x += 1 {
         for y := sy; y < fy; y += 1 {
+            // optimize
+            if int(res) > min_val {
+                return 1e10
+            }
+
             var ar, ag, ab, aa = a.At(x, y).RGBA()
             var br, bg, bb, ba = b.At(x, y).RGBA()
             res += math.Sqrt(math.Pow(float64(ar - br), 2) +
@@ -51,12 +56,42 @@ func diff2(a, b image.Image) int {
                           math.Pow(float64(AavgB - BavgB), 2) ) )
 }
 
+func getHist(img image.Image) [100]int {
+    var h [100]int
+
+    var bounds image.Rectangle = img.Bounds()
+
+    var sx, sy, fx, fy = bounds.Min.X, bounds.Min.Y, bounds.Max.X, bounds.Max.Y
+
+    max_val := 65536 * 65536 * 3
+    for x := sx; x < fx; x += 1 {
+        for y := sy; y < fy; y += 1 {
+            var ar, ag, ab, _ = img.At(x, y).RGBA()
+            h[int(float64(ar*ar + ag*ag + ab*ab) / float64(max_val) * 99)] += 1
+        }
+    }
+
+    return h
+}
+
+func diff3(a, b image.Image) int {
+    ha := getHist(a)
+    hb := getHist(b)
+
+    var res float64 = 0.
+    for i:=0; i < 100; i++ {
+        res += float64((ha[i] - hb[i]) * (ha[i] - hb[i]))
+    }
+
+    return int(res)
+}
+
 func getTileWithMinimalDiff(part image.Image, tiles []image.Image) image.Image {
     var min_diff int = 1e10
     var min_idx int = 0
 
     for idx, tile := range tiles {
-        var curr_diff = diff(part, tile)
+        var curr_diff = diff3(part, tile)
         if min_diff > curr_diff {
             min_diff = curr_diff
             min_idx = idx

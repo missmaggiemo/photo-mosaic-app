@@ -21,6 +21,6 @@ func GetTilePaths() []string {
 }
 
 func GetMainFilePath() string {
-    res, _ := filepath.Abs("/Users/psk/tubular/gohack/photo-mosaic-app/src/photomosaic/tests/sample_images/tiles/Paris_Tuileries_Garden_Facepalm_statue.jpg")
+    res, _ := filepath.Abs("/Users/psk/tubular/gohack/photo-mosaic-app/src/photomosaic/tests/sample_images/dogecoin-300.jpg")
     return res
 }

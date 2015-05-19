@@ -13,6 +13,8 @@ func main() {
 
     var main_image = imgproc.LoadImage(main_img_path)
 
+    main_image = imgproc.EnlargeMainImage(main_image)
+
     var tiles = make([]image.Image, len(tile_paths))
 
     for idx, tile_path := range tile_paths {
