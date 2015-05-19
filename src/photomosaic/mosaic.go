@@ -9,6 +9,7 @@ import (
 	"runtime"
 )
 
+type empty struct {}
 
 func main() {
     fmt.Println("# of proc: ", runtime.NumCPU())
@@ -31,11 +32,21 @@ func main() {
 
     var tiles = make([]image.Image, len(tile_paths))
 
+    sem := make(chan empty, len(tile_paths))
+
     for idx, tile_path := range tile_paths {
-        fmt.Print(".")
-        tiles[idx] = imgproc.LoadImage(tile_path)
-        tiles[idx] = imgproc.ResizeTile(tiles[idx])
+        go func (idx int, tile_path string) {
+            tiles[idx] = imgproc.LoadImage(tile_path)
+            tiles[idx] = imgproc.ResizeTile(tiles[idx])
+            sem <- empty{}
+        }(idx, tile_path)
     }
+
+    for i:=0; i<len(tile_paths); i++ {
+        <-sem
+        fmt.Print(".")
+    }
+    fmt.Println()
 
     var result_image image.Image = imgproc.Compose(main_image, tiles)
 

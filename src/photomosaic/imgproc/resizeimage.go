@@ -5,9 +5,9 @@ import (
     "image"
 )
 
-const TILE_WIDTH = 20
-const TILE_HEIGHT = 20
-const ENLARGE = 16
+const TILE_WIDTH = 30
+const TILE_HEIGHT = 30
+const ENLARGE = 8
 
 func ResizeTile(tile image.Image) image.Image {
     return resize.Resize(TILE_WIDTH, TILE_HEIGHT, tile, resize.Lanczos3)

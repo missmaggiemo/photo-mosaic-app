@@ -4,6 +4,7 @@ import (
     "image"
     "math"
     "image/draw"
+//    "fmt"
 )
 
 func getHist(img image.Image) [100]int {
@@ -92,8 +93,11 @@ func Compose(main_image image.Image, tiles []image.Image) image.Image {
         }
     }
 
+    proceed := 0.
     for i:= 0; i < N * M; i++ {
         <-sem
+        proceed += 1
+//        fmt.Print(int(proceed / float64(N * M) * 100.), "%, ")
     }
 
     return resulting_image
