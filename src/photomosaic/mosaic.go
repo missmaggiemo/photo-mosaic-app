@@ -5,11 +5,21 @@ import (
     "image"
 	"photomosaic/tests"
 	"photomosaic/imgproc"
+	"os"
 )
 
+
 func main() {
-	var tile_paths []string = tests.GetTilePaths()
-    var main_img_path string = tests.GetMainFilePath()
+    var tiles_path = ""
+    var main_image_path = ""
+
+    if len(os.Args) >= 2 {
+        main_image_path = os.Args[1]
+        tiles_path = os.Args[2]
+    }
+
+	var tile_paths []string = tests.GetTilePaths(tiles_path)
+    var main_img_path string = tests.GetMainFilePath(main_image_path)
 
     var main_image = imgproc.LoadImage(main_img_path)
 

@@ -4,8 +4,12 @@ import "strings"
 import "io/ioutil"
 import "path/filepath"
 
-func GetTilePaths() []string {
-    file_info, _ := ioutil.ReadDir("./tests/sample_images/tiles")
+func GetTilePaths(path string) []string {
+    if path == "" {
+        path = "./tests/sample_images/tiles"
+    }
+
+    file_info, _ := ioutil.ReadDir(path)
 
     var paths = make([]string, len(file_info))
 
@@ -20,8 +24,11 @@ func GetTilePaths() []string {
     return paths[0:idx]
 }
 
-func GetMainFilePath() string {
-    //res, _ := filepath.Abs("/Users/psk/tubular/gohack/photo-mosaic-app/src/photomosaic/tests/sample_images/dogecoin-300.jpg")
-    res, _ := filepath.Abs("/Users/psk/tubular/gohack/photo-mosaic-app/src/photomosaic/tests/sample_images/SunLou2.jpg")
+func GetMainFilePath(path string) string {
+    if path == "" {
+        path = "/Users/psk/tubular/gohack/photo-mosaic-app/src/photomosaic/tests/sample_images/SunLou2.jpg"
+    }
+
+    res, _ := filepath.Abs(path)
     return res
 }
