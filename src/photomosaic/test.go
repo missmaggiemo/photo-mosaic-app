@@ -19,7 +19,6 @@ func main() {
 
     for idx, tile_path := range tile_paths {
         fmt.Print(".")
-        //fmt.Println(tile_path)
         tiles[idx] = imgproc.LoadImage(tile_path)
         tiles[idx] = imgproc.ResizeTile(tiles[idx])
     }
