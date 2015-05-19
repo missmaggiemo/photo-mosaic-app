@@ -11,7 +11,7 @@ func GetTilePaths() []string {
 
     var idx int = 0
     for _, item := range file_info {
-        if strings.Contains(item.Name(), ".png") || strings.Contains(item.Name(), ".png") {
+        if strings.Contains(item.Name(), ".png") || strings.Contains(item.Name(), ".jpg") {
             paths[idx], _ = filepath.Abs("./tests/sample_images/tiles/" + item.Name())
             idx++
         }
@@ -21,6 +21,6 @@ func GetTilePaths() []string {
 }
 
 func GetMainFilePath() string {
-    res, _ := filepath.Abs("./tests/sample_images/dogecoin-300.jpg")
+    res, _ := filepath.Abs("/Users/psk/tubular/gohack/photo-mosaic-app/src/photomosaic/tests/sample_images/tiles/Paris_Tuileries_Garden_Facepalm_statue.jpg")
     return res
 }
