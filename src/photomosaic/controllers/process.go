@@ -3,8 +3,9 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"io/ioutil"
     "fmt"
-    "reflect"
+//    "reflect"
 )
 
 type ProcessController struct {
@@ -12,10 +13,13 @@ type ProcessController struct {
 }
 
 func (c *ProcessController) Post() {
-    f, h, _ := c.GetFile("file")
+    f, _, _ := c.Ctx.Request.FormFile("file")
+    defer f.Close()
 
-	fmt.Println(h)
-	fmt.Println(reflect.TypeOf(f))
+    tile, _ := ioutil.ReadAll(f)
 
-	c.TplNames = "index.html"
+    c.Ctx.Output.Header("Content-Type", "image/jpeg")
+    c.Ctx.Output.Body(tile)
+
+    fmt.Println("Finished")
 }
