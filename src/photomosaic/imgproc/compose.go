@@ -24,23 +24,26 @@ func getHist(img image.Image) [100]int {
     return h
 }
 
-func diff3(ha [100]int, hb [100]int) int {
+func diff3(ha [100]int, hb [100]int, min_diff float64) float64 {
     var res float64 = 0.
     for i:=0; i < 100; i++ {
+        if res > min_diff {  // optimizitaion: obviously should stop
+            return res
+        }
         res += float64((ha[i] - hb[i]) * (ha[i] - hb[i]))
     }
 
-    return int(res)
+    return res
 }
 
 func getTileWithMinimalDiff(part image.Image, tiles []image.Image, tile_hists [][100]int) image.Image {
-    var min_diff int = 1e10
+    var min_diff float64 = 1e15
     var min_idx int = 0
 
     part_hist := getHist(part)
 
     for idx, _ := range tiles {
-        var curr_diff = diff3(part_hist, tile_hists[idx])
+        var curr_diff = diff3(part_hist, tile_hists[idx], min_diff)
         if min_diff > curr_diff {
             min_diff = curr_diff
             min_idx = idx
