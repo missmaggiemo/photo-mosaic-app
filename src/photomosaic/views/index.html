@@ -2,6 +2,23 @@
   <div class="image-container">
     <div ng-if="!transformedImagePath" class="no-image-yet">No image yet!</div>
     <img class="transformed-image" ng-if="transformedImagePath" ng-src="{{transformedImagePath}}">
+
+<div>
+    <a class="magnifier-thumb-wrapper" href="http://en.wikipedia.org/wiki/File:Starry_Night_Over_the_Rhone.jpg">
+        <img id="thumb" src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Starry_Night_Over_the_Rhone.jpg/200px-Starry_Night_Over_the_Rhone.jpg"
+        data-large-img-url="http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Starry_Night_Over_the_Rhone.jpg/400px-Starry_Night_Over_the_Rhone.jpg"
+        data-large-img-wrapper="preview">
+    </a>
+    <div class="magnifier-preview" id="preview" style="width: 200px; height: 133px">Starry Night Over The Rhone<br>by Vincent van Gogh</div>
+</div>
+
+<script type="text/javascript">
+  var evt = new Event(),
+  m = new Magnifier(evt);
+  m.attach({thumb: '#thumb'});
+</script>
+
+
   </div>
 
   <div class="form-container">
