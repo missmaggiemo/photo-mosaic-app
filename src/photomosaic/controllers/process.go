@@ -51,6 +51,7 @@ func (c *ProcessController) Post() {
     if tile != nil {
 
         if is_tile {
+            tile = imgproc.ResizeTile(tile)
             imgproc.SaveImage("tmp/tiles/" + hdr.Filename, tile)
             c.Ctx.WriteString("tiles/" + hdr.Filename)
         } else {

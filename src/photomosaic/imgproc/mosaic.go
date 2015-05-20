@@ -32,7 +32,7 @@ func Mosaic(main_image_path, tiles_path string) {
     for idx, tile_path := range tile_paths {
         go func (idx int, tile_path string) {
             tiles[idx] = LoadImage(tile_path)
-            tiles[idx] = ResizeTile(tiles[idx])
+    //        tiles[idx] = ResizeTile(tiles[idx])
             sem <- empty{}
         }(idx, tile_path)
     }
