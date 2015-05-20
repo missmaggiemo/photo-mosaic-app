@@ -42,16 +42,16 @@
       };
     };
 
-    // $scope.process = function () {
-    //   console.log('hi');
-    //   $http.get('/image').
-    //     success(function (data) {
-    //       console.log(data);
-    //     }).
-    //     error(function (data, status, headers, config) {
-    //       console.log(data);
-    //     });
-    // };
+    $scope.process = function () {
+      console.log('mosaic request');
+      $http.get('/mosaic').
+        success(function (data) {
+          console.log(data);
+        }).
+        error(function (data, status, headers, config) {
+          console.log(data);
+        });
+    };
 
   }]);
 }());
