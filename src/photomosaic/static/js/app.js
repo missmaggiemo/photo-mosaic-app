@@ -26,6 +26,7 @@
     var uploadFiles = function (files, dataName) {
       if (files && files.length) {
         for (var i = 0; i < files.length; i ++) {
+          if (files[i].type == 'directory') {continue;}
           var file = files[i];
           Upload.upload({
             url: '/process',
