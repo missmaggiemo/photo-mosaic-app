@@ -6,7 +6,5 @@ node_modules
 .idea/
 
 src/photomosaic/tmp/
-!src/photomosaic/tmp/tiles/
-src/photomosaic/tmp/tiles/
 
 src/photomosaic/photomosaic
