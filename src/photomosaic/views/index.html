@@ -1,36 +1,17 @@
-<!doctype html>
-<html>
-
-<head>
-  <title>Upload Photo</title>
-  <link rel="stylesheet" href="/static/css/photomosaic.css">
-  <script src="/static/js/angular.js"></script>
-  <script src="/static/js/ng-file-upload-all.js"></script>
-  <script src="/static/js/app.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="http://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
-</head>
-
-<body ng-app="photoMosaic">
-
-  <div class="container" ng-controller="UploadController">
-    Target Image:
-    <div class="button" ngf-select ngf-multiple="true" ng-model="targetFiles">Select File</div>
-    Tiles Directory:
-    <div ngf-drop ngf-select ng-model="tileFiles" class="drop-box" 
-      ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-      accept="image/*,application/pdf">Drop tiles directory here.</div>
-    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-    <div ng-hide="hideButton" class="button" ng-click="process()">
-      <span ng-hide="loading">Process</span><span ng-if="loading">...</span>
-    </div>
-    Upload Log:
-    <pre>{{log}}</pre>
-    <div class="result">
-      <img ng-repeat="image in transformedImagePaths" ng-show="transformedImagePaths" ng-src="{{image}}" style="max-width: 1300px;">
-    </div>
+<div class="upload-container" ng-controller="UploadController">
+  Target Image:
+  <div class="button" ngf-select ngf-multiple="true" ng-model="targetFiles">Select File</div>
+  Tiles Directory:
+  <div ngf-drop ngf-select ng-model="tileFiles" class="drop-box"
+    ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+    accept="image/*,application/pdf">Drop tiles directory here.</div>
+  <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+  <div ng-hide="hideButton" class="button" ng-click="process()">
+    <span ng-hide="loading">Process</span><span ng-if="loading">...</span>
   </div>
-
-</body>
-
-</html>
+  Upload Log:
+  <pre>{{log}}</pre>
+  <div class="result">
+    <img ng-repeat="image in transformedImagePaths" ng-show="transformedImagePaths" ng-src="{{image}}" style="max-width: 1300px;">
+  </div>
+</div>
