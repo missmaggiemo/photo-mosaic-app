@@ -1,3 +1,32 @@
+.app-container {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1000px;
+}
+
+.upload-container {
+    margin-top: 50px;
+}
+
+.image-container {
+    margin-bottom: 40px;
+}
+
+.image-container .no-image-yet {
+    background: #eee;
+    padding: 100px;
+    color: #999;
+}
+
+.form-container .row {
+    width: 100%;
+}
+
+.form-container .select-* {
+    margin: 0 auto;
+    text-align: center;
+}
+
 .button {
     -moz-appearance: button;
     /* Firefox */
@@ -10,12 +39,14 @@
 .drop-box {
     background: #F8F8F8;
     border: 5px dashed #DDD;
+    border-radius: 3px;
     width: 200px;
-    height: 65px;
+    height: 200px;
     text-align: center;
-    padding-top: 25px;
+    padding: 25px;
     margin: 10px;
 }
 .dragover {
     border: 5px dashed blue;
+    border-radius: 3px;
 }
