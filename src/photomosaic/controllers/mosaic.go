@@ -2,9 +2,11 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"os"
 	"fmt"
 	"photomosaic/imgproc"
+	"strings"
+	"io/ioutil"
+	"path/filepath"
 )
 
 type MosaicController struct {
@@ -12,13 +14,19 @@ type MosaicController struct {
 }
 
 func (c *MosaicController) Get() {
-    if _, err := os.Stat("tmp/target.jpg"); err == nil {
-        imgproc.Mosaic("tmp/target.jpg", "tmp/tiles")
-        c.Ctx.WriteString("result.jpg")
-    } else {
-        imgproc.Mosaic("tmp/target.png", "tmp/tiles")
-        c.Ctx.WriteString("result.jpg")
+
+    file_info, _ := ioutil.ReadDir("tmp")
+
+    var main_file string
+
+    for _, item := range file_info {
+        if (strings.Contains(item.Name(), ".png") || strings.Contains(item.Name(), ".jpg")) && (item.Name() != "result.jpg") {
+            main_file, _ = filepath.Abs("tmp/" + item.Name())
+        }
     }
+
+    imgproc.Mosaic(main_file, "tmp/tiles")
+    c.Ctx.WriteString("result.jpg")
 
     fmt.Println("Finished")
 }
