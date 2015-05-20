@@ -46,10 +46,10 @@
       console.log('mosaic request');
       $http.get('/mosaic').
         success(function (data) {
-          console.log(data);
+          $scope.transformedImage = '/image?file=' + data;
         }).
         error(function (data, status, headers, config) {
-          console.log(data);
+          console.log('Oops!');
         });
     };
 
