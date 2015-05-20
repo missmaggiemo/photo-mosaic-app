@@ -9,7 +9,7 @@
     $scope.log = '';
     $scope.targetFiles = [];
     $scope.tileFiles = [];
-    $scope.transformedImages = [];
+    $scope.transformedImagePaths = [];
 
     $scope.$watch('targetFiles', function () {
       if ($scope.targetFiles) {
@@ -46,8 +46,8 @@
       console.log('mosaic request');
       $http.get('/mosaic').
         success(function (data) {
-          transformedImage = '/image?file=' + data;
-          $scope.transformedImages.push(transformedImage)
+          var imagePath = '/image?file=' + data;
+          $scope.transformedImagePaths.push(imagePath)
         }).
         error(function (data, status, headers, config) {
           console.log('Oops!');
