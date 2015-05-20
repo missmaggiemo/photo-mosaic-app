@@ -4,7 +4,7 @@
     <img class="transformed-image" ng-if="transformedImagePath" ng-src="{{transformedImagePath}}">
   </div>
 
-  <div class="form-container" ng-if="!transformedImagePath">
+  <div class="form-container" ng-hide="transformedImagePath">
     <div class="row">
       <div class="select-target-group col-lg-6">
         <div class="file-select-container">
