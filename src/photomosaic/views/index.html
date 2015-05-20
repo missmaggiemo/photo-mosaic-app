@@ -1,19 +1,19 @@
 <div class="upload-container" ng-controller="UploadController">
   <div class="image-container">
     <div ng-if="!transformedImagePath" class="no-image-yet">No image yet!</div>
-    <magnified-image ng-if="transformedImagePath" image-url="transformedImagePath"></magnified-image>
+    <img class="transformed-image" ng-if="transformedImagePath" ng-src="{{transformedImagePath}}">
   </div>
 
-  <div class="form-container">
+  <div class="form-container" ng-if="!transformedImagePath">
     <div class="row">
       <div class="select-target-group col-lg-6">
         <div class="file-select-container">
-          <div class="btn btn-default" ngf-select ngf-multiple="true" ng-model="targetFiles">Select Target Image</div>
+          <div class="file-select btn btn-default" ngf-select ngf-multiple="true" ng-model="targetFiles">Select Target Image</div>
         </div>
       </div>
       <div class="select-tiles-group col-lg-6">
         <div class="file-select-container">
-          <div ngf-drop ngf-select ng-model="tileFiles" class="drop-box"
+          <div ngf-drop ngf-select ng-model="tileFiles" class="dir-select drop-box"
             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
             accept="image/*,application/pdf">Drop tiles directory here.</div>
           <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>        
@@ -21,10 +21,10 @@
       </div>
     </div>
     <div class="process-group">
-      <div ng-hide="hideButton" class="btn btn-default" ng-click="process()">
+      <div ng-hide="hideButton" class="process btn btn-primary" ng-click="process()">
         <span ng-hide="loading">Process</span><span ng-if="loading">...</span>
       </div>
-      <pre>{{log}}</pre>
+      <pre ng-hide="!log">{{log}}</pre>
     </div>
   </div>
 </div>

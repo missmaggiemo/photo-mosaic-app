@@ -3,17 +3,6 @@
 
   console.log('Congrats! Your JS is running!');
 
-  var magnifiedImageTmp = '<div class="transformed-image">\
-  <a class="magnifier-thumb-wrapper">\
-      <img id="thumb" ng-src="{{imageUrl}}"\
-      data-large-img-url="{{imageUrl}}"\
-      data-large-img-wrapper="preview">\
-  </a>\
-  <div class="magnifier-preview" id="preview" style="width: 200px; height: 133px"></div>\
-  <script type="text/javascript">\
-    var evt = new Event(),\
-    m = new Magnifier(evt);' + "m.attach({thumb: '#thumb', zoom: 3});</script></div>"
-
   var app = angular.module('photoMosaic', ['ngFileUpload']);
 
   app.controller('UploadController', ['$scope', '$http', 'Upload', function ($scope, $http, Upload) {
@@ -67,16 +56,5 @@
     };
 
   }]);
-
-  app.directive('magnifiedImage', function () {
-    return {
-      restrict: 'E',
-      template: magnifiedImageTmp,
-      scope: {
-        imageUrl: '='
-      }
-    }
-
-  });
 
 }());
