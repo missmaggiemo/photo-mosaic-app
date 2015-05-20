@@ -43,11 +43,14 @@
     };
 
     $scope.process = function () {
-      console.log('mosaic request');
+      if ($scope.loading) {return;}
+      $scope.loading = true;
       $http.get('/mosaic').
         success(function (data) {
           var imagePath = '/image?file=' + data;
-          $scope.transformedImagePaths.push(imagePath)
+          $scope.transformedImagePaths.push(imagePath);
+          $scope.hideButton = true;
+          $scope.loading = false;
         }).
         error(function (data, status, headers, config) {
           console.log('Oops!');

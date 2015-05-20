@@ -21,7 +21,9 @@
       ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
       accept="image/*,application/pdf">Drop tiles directory here.</div>
     <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-    <div class="button" ng-click="process()">Process</div>
+    <div ng-hide="hideButton" class="button" ng-click="process()">
+      <span ng-hide="loading">Process</span><span ng-if="loading">...</span>
+    </div>
     Upload Log:
     <pre>{{log}}</pre>
     <div class="result">
