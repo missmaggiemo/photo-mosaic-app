@@ -25,7 +25,7 @@ func (c *MosaicController) Get() {
         }
     }
 
-    imgproc.Mosaic(main_file, "tmp/tiles")
+    imgproc.Mosaic(main_file, "tmp/tiles/")
     c.Ctx.WriteString("result.jpg")
 
     fmt.Println("Finished")

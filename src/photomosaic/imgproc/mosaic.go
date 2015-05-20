@@ -41,7 +41,6 @@ func Mosaic(main_image_path, tiles_path string) {
         <-sem
         fmt.Print(".")
     }
-    fmt.Println()
 
     var result_image image.Image = Compose(main_image, tiles)
 

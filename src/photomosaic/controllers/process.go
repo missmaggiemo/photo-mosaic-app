@@ -48,13 +48,18 @@ func (c *ProcessController) Post() {
 
     tile := imgproc.LoadImageFromStream(hdr.Filename, f)
 
-    if is_tile {
-        imgproc.SaveImage("tmp/tiles/" + hdr.Filename, tile)
-        c.Ctx.WriteString("tiles/" + hdr.Filename)
-    } else {
-        imgproc.SaveImage("tmp/" + hdr.Filename, tile)
-        c.Ctx.WriteString(hdr.Filename)
+    if tile != nil {
+
+        if is_tile {
+            imgproc.SaveImage("tmp/tiles/" + hdr.Filename, tile)
+            c.Ctx.WriteString("tiles/" + hdr.Filename)
+        } else {
+            imgproc.SaveImage("tmp/" + hdr.Filename, tile)
+            c.Ctx.WriteString(hdr.Filename)
+        }
+
     }
 
+    c.Ctx.WriteString("nil")
     fmt.Println("Finished")
 }

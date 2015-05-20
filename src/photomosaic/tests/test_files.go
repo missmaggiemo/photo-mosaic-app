@@ -16,7 +16,7 @@ func GetTilePaths(path string) []string {
     var idx int = 0
     for _, item := range file_info {
         if strings.Contains(item.Name(), ".png") || strings.Contains(item.Name(), ".jpg") {
-            paths[idx], _ = filepath.Abs("./tests/sample_images/tiles/" + item.Name())
+            paths[idx], _ = filepath.Abs(path + item.Name())
             idx++
         }
     }

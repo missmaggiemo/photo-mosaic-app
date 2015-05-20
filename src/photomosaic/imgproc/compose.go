@@ -7,8 +7,10 @@ import (
 //    "fmt"
 )
 
-func getHist(img image.Image) [100]int {
-    var h [100]int
+const HIST_SIZE = 500
+
+func getHist(img image.Image) [HIST_SIZE]int {
+    var h [HIST_SIZE]int
 
     var bounds image.Rectangle = img.Bounds()
 
@@ -25,9 +27,9 @@ func getHist(img image.Image) [100]int {
     return h
 }
 
-func diff3(ha [100]int, hb [100]int, min_diff float64) float64 {
+func diff3(ha [HIST_SIZE]int, hb [HIST_SIZE]int, min_diff float64) float64 {
     var res float64 = 0.
-    for i:=0; i < 100; i++ {
+    for i:=0; i < HIST_SIZE; i++ {
         if res > min_diff {  // optimizitaion: obviously should stop
             return res
         }
@@ -37,13 +39,16 @@ func diff3(ha [100]int, hb [100]int, min_diff float64) float64 {
     return res
 }
 
-func getTileWithMinimalDiff(part image.Image, tiles []image.Image, tile_hists [][100]int) image.Image {
+func getTileWithMinimalDiff(part image.Image, tiles []image.Image, tile_hists [][HIST_SIZE]int) image.Image {
     var min_diff float64 = 1e15
     var min_idx int = 0
 
     part_hist := getHist(part)
 
     for idx, _ := range tiles {
+        if tiles[idx] == nil {
+            continue
+        }
         var curr_diff = diff3(part_hist, tile_hists[idx], min_diff)
         if min_diff > curr_diff {
             min_diff = curr_diff
@@ -64,8 +69,11 @@ func Compose(main_image image.Image, tiles []image.Image) image.Image {
 
     var resulting_image = image.NewRGBA(bounds)
 
-    var tile_hists = make([][100]int, len(tiles))
+    var tile_hists = make([][HIST_SIZE]int, len(tiles))
     for idx, tile := range tiles {
+        if tiles == nil {
+            continue
+        }
         tile_hists[idx] = getHist(tile)
     }
 
