@@ -15,7 +15,7 @@ type ProcessController struct {
 }
 
 func (c *ProcessController) Post() {
-    f, hdr, _ := c.Ctx.Request.FormFile("file")
+    f, hdr, _ := c.Ctx.Request.FormFile("tile")
     defer f.Close()
 
     tile := imgproc.LoadImageFromStream(hdr.Filename, f)

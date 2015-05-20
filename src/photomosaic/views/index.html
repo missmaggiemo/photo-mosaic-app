@@ -14,22 +14,19 @@
 <body ng-app="photoMosaic">
 
   <div class="container" ng-controller="UploadController">
-    <input type="checkbox" ng-model="multiple">upload multiple file</br></br>
-    watching model:
-    <div class="button" ngf-select ng-model="files" ngf-multiple="multiple">Select File</div>
-    on file change:
-    <div class="button" ngf-select ngf-change="upload($files)" ngf-multiple="multiple">Select File</div>
-    Drop File:
-    <div ngf-drop ngf-select ng-model="files" class="drop-box" 
+    Target Image:
+    <div class="button" ngf-select ngf-multiple="true" ng-model="targetFiles">Select File</div>
+    Tiles Directory:
+    <div ngf-drop ngf-select ng-model="tileFiles" class="drop-box" 
       ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-      accept="image/*,application/pdf">Drop pdfs or images here or click to upload</div>
+      accept="image/*,application/pdf">Drop tiles directory here.</div>
     <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-    Files:
-    <ul>
-      <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
-    </ul>
+    <div class="button" ng-click="process()">Process</div>
     Upload Log:
     <pre>{{log}}</pre>
+    <div class="result">
+      <img ng-show="transformedImage" ng-src="{{transformedImage}}">
+    </div>
   </div>
 
 </body>
