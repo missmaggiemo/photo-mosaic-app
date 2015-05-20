@@ -7,6 +7,7 @@ import (
     "fmt"
     "photomosaic/imgproc"
 //    "reflect"
+    "strings"
 )
 
 type ProcessController struct {
@@ -18,8 +19,14 @@ func (c *ProcessController) Post() {
     defer f.Close()
 
     tile := imgproc.LoadImageFromStream(hdr.Filename, f)
-    imgproc.SaveImage("tmp/" + hdr.Filename, tile)
-    c.Ctx.WriteString(hdr.Filename)
+
+    if strings.Contains(hdr.Filename, "tile") {
+        imgproc.SaveImage("tmp/tiles/" + hdr.Filename, tile)
+        c.Ctx.WriteString("tiles/" + hdr.Filename)
+    } else {
+        imgproc.SaveImage("tmp/" + hdr.Filename, tile)
+        c.Ctx.WriteString(hdr.Filename)
+    }
 
     fmt.Println("Finished")
 }
