@@ -25,7 +25,7 @@
     Upload Log:
     <pre>{{log}}</pre>
     <div class="result">
-      <img ng-show="transformedImage" ng-src="{{transformedImage}}" style="max-width: 1000px;">
+      <img ng-repeat="image in transformedImages" ng-show="transformedImages" ng-src="{{image}}" style="max-width: 1000px;">
     </div>
   </div>
 

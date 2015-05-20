@@ -9,6 +9,7 @@
     $scope.log = '';
     $scope.targetFiles = [];
     $scope.tileFiles = [];
+    $scope.transformedImages = [];
 
     $scope.$watch('targetFiles', function () {
       if ($scope.targetFiles) {
@@ -21,7 +22,6 @@
         uploadFiles($scope.tileFiles, 'tile')
       }
     });
-
 
     var uploadFiles = function (files, dataName) {
       if (files && files.length) {
@@ -46,7 +46,8 @@
       console.log('mosaic request');
       $http.get('/mosaic').
         success(function (data) {
-          $scope.transformedImage = '/image?file=' + data;
+          transformedImage = '/image?file=' + data;
+          $scope.transformedImages.push(transformedImage)
         }).
         error(function (data, status, headers, config) {
           console.log('Oops!');
