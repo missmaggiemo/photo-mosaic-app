@@ -10,6 +10,7 @@
 
 .image-container {
     margin-bottom: 40px;
+    max-width: 1000px
 }
 
 .image-container .no-image-yet {
@@ -18,13 +19,21 @@
     color: #999;
 }
 
+.transformed-image img {
+    max-width: 500px;
+}
+
 .form-container .row {
     width: 100%;
 }
 
 .form-container .select-* {
-    margin: 0 auto;
     text-align: center;
+}
+
+.form-container .select-* div:first-child {
+    margin: 0 auto;
+    display: block !important;
 }
 
 .button {

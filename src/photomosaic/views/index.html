@@ -1,43 +1,29 @@
 <div class="upload-container" ng-controller="UploadController">
   <div class="image-container">
     <div ng-if="!transformedImagePath" class="no-image-yet">No image yet!</div>
-    <img class="transformed-image" ng-if="transformedImagePath" ng-src="{{transformedImagePath}}">
-
-<div>
-    <a class="magnifier-thumb-wrapper" href="http://en.wikipedia.org/wiki/File:Starry_Night_Over_the_Rhone.jpg">
-        <img id="thumb" src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Starry_Night_Over_the_Rhone.jpg/200px-Starry_Night_Over_the_Rhone.jpg"
-        data-large-img-url="http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Starry_Night_Over_the_Rhone.jpg/400px-Starry_Night_Over_the_Rhone.jpg"
-        data-large-img-wrapper="preview">
-    </a>
-    <div class="magnifier-preview" id="preview" style="width: 200px; height: 133px">Starry Night Over The Rhone<br>by Vincent van Gogh</div>
-</div>
-
-<script type="text/javascript">
-  var evt = new Event(),
-  m = new Magnifier(evt);
-  m.attach({thumb: '#thumb'});
-</script>
-
-
+    <magnified-image ng-if="transformedImagePath" image-url="transformedImagePath"></magnified-image>
   </div>
 
   <div class="form-container">
     <div class="row">
       <div class="select-target-group col-lg-6">
-        <div class="btn btn-default" ngf-select ngf-multiple="true" ng-model="targetFiles">Select Target Image</div>
+        <div class="file-select-container">
+          <div class="btn btn-default" ngf-select ngf-multiple="true" ng-model="targetFiles">Select Target Image</div>
+        </div>
       </div>
       <div class="select-tiles-group col-lg-6">
-        <div ngf-drop ngf-select ng-model="tileFiles" class="drop-box"
-          ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-          accept="image/*,application/pdf">Drop tiles directory here.</div>
-        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+        <div class="file-select-container">
+          <div ngf-drop ngf-select ng-model="tileFiles" class="drop-box"
+            ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+            accept="image/*,application/pdf">Drop tiles directory here.</div>
+          <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>        
+        </div>
       </div>
     </div>
     <div class="process-group">
       <div ng-hide="hideButton" class="btn btn-default" ng-click="process()">
         <span ng-hide="loading">Process</span><span ng-if="loading">...</span>
       </div>
-      Upload Log:
       <pre>{{log}}</pre>
     </div>
   </div>
